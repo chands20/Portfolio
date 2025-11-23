@@ -1,0 +1,10 @@
+{% extends "edit_joke.html" %} {% block admin_content %}
+    <hr>
+    <p style="background: #fff0f0; padding: 1em;">
+        <b>{{ form.justification.label }}</b><br>
+        {{ form.justification(rows=2, cols=50) }}
+        {% for error in form.justification.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+{% endblock %}

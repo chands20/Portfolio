@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>All Jokes ({{ jokes|length }})</h2>
+    <ul>
+        {% for joke in jokes %}
+            <li>"{{ joke.body }}" - <i>by {{ joke.author.username }}</i>
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin_edit_joke', joke_id=joke.id) }}">📝</a>
+            {% endif %}</li>
+        {% endfor %}
+    </ul>. 
+    {# ^^^^^^^ INSERT CHANGES AFTER JOKES ^^^^^^^^ #}
+    <h1>Admin Audit Log</h1>
+    <table border="1" style="width: 100%;">
+        <thead>
+            <tr style="background-color: #f0f0f0;">
+                <th>Timestamp</th>
+                <th>Admin</th>
+                <th>Action</th>
+                <th>Target</th>
+                <th>Justification / Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for action in actions %}
+            <tr>
+                <td>{{ action.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ action.user.username }}</td>
+                <td>{{ action.action_type }}</td>
+                <td>
+                    {% if action.target_type %}
+                        {{ action.target_type }} #{{ action.target_id }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{ action.details }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center;">No admin actions logged yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}  {# <====== ORIGINAL CODE #}

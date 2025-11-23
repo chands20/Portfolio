@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Admin: Edit User {{ user.username }}</h1>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <p>
+      {{ form.username.label }}<br>
+      {{ form.username(size=32, readonly=True) }}
+    </p>
+
+    <p>
+      {{ form.email.label }}<br>
+      {{ form.email(size=32, readonly=True) }}
+    </p>
+
+    <p>
+      {{ form.role.label }}<br>
+      {{ form.role() }}
+    </p>
+
+    <p>
+      {{ form.is_active.label }} {{ form.is_active() }}
+    </p>
+
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}
